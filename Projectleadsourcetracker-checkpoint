@@ -1,0 +1,32 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+
+data = {
+    "Lead_ID": [101, 102, 103, 104, 105],
+    "Lead_Name": ["John", "Mary", "David", "Alex", "Sam"],
+    "Source": ["Website", "Referral", "Website", "Social Media", "Referral"]
+}
+
+df = pd.DataFrame(data)
+
+valid_sources = [
+    "Website", "Referral", "Social Media",
+    "Advertisement", "Email Campaign"
+]
+
+if df["Source"].isin(valid_sources).all():
+    source_count = df["Source"].value_counts()
+    source_percentage = (source_count / source_count.sum()) * 100
+
+    print("Lead Count by Source")
+    print(source_count)
+
+    print("\nLead Percentage by Source")
+    print(source_percentage)
+
+    source_count.plot(kind="bar", title="Lead Count by Source")
+    plt.xlabel("Source")
+    plt.ylabel("Number of Leads")
+    plt.show()
+else:
+    print("Invalid source found")
